@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "target": "es6",                                
+    "module": "commonjs",                           
+    "removeComments": true,
+    "esModuleInterop": true,    
+    "noImplicitAny": true,
+    "strict": true, 
+    "declaration": true,
+  },
+  "include": [
+    "src/**/**/*.ts",
+    "src/**/**/*.d.ts",
+    "migrations/*.ts",
+  ],
+  "exclude": [
+    "dist",
+    "node_modules",
+    "jest.config.ts"
+  ]
+}
