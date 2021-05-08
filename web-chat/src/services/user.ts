@@ -1,5 +1,7 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
+import jwtConfig from '../utils/jwt';
 import { ServiceContext } from '../types/service';
 import { IUserService, User } from '../types/user';
 
@@ -24,5 +26,26 @@ export class UserService implements IUserService {
       username,
       password: hashPassword,
     })
+  }
+
+  async signIn({ username, password }: User): Promise<string> {
+    const existingUser = await this.userRepository.findByUsername(username);
+
+    if (!existingUser) {
+      throw new Error('User does not exist');
+    };
+
+    if (!(await bcrypt.compare(password, existingUser.password!))) {
+      throw new Error('Incorrect password');
+    };
+
+    const token = jwt.sign({
+      id: existingUser.id,
+      username: existingUser.username,
+    }, jwtConfig.secret, {
+      expiresIn: jwtConfig.expiresIn,
+    });
+
+    return token;
   }
 }

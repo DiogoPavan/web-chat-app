@@ -11,4 +11,5 @@ export interface IUserRepository {
 
 export interface IUserService {
   signUp(user: User): Promise<User>;
+  signIn(user: User): Promise<string>;
 }

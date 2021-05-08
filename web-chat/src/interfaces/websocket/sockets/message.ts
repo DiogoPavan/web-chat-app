@@ -30,18 +30,7 @@ export class MessageSocket implements ISocket {
   listener() {
     this.socket.on('joinRoom', this.joinRoom.bind(this));
     this.socket.on('chatMessage', this.createMessage.bind(this));
-    this.socket.on('disconnect', () => {
-      const user =  users.find(user => user.id === this.socket.id);
-
-      if (user) {
-        this.io.to(user.roomId).emit('message', formatMessage('ChatCordBot',`${user.username} has left the chat`));
-                //sned users and room info
-        this.io.to(user.roomId).emit('roomUsers', {
-            room: user.roomId,
-            users: users.filter(user => user.roomId === user.roomId),
-        })
-      }
-    });
+    this.socket.on('disconnect', this.disconnect.bind(this));
   }
 
   async joinRoom({ username, roomId }) {
@@ -60,11 +49,7 @@ export class MessageSocket implements ISocket {
     roomId,
   }) {
     const user = users.find(user => user.id === this.socket.id);
-    console.log({
-      message,
-      userId,
-      roomId,
-    })
+
     await this.messageService.createMessage({
       message,
       userId,
@@ -72,5 +57,15 @@ export class MessageSocket implements ISocket {
     });
 
     this.io.to(user!.roomId).emit('message', formatMessage(user!.username, message));
+  }
+
+  async disconnect() {
+    const user =  users.find(user => user.id === this.socket.id);
+    if (user) {
+      this.io.to(user.roomId).emit('roomUsers', {
+          room: user.roomId,
+          users: users.filter(user => user.roomId === user.roomId),
+      })
+    }
   }
 }
