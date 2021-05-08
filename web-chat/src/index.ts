@@ -1,20 +1,28 @@
-import express from 'express';
-import cors from 'cors';
-import { env } from './utils/env';
+import * as http from 'http';
 
-const app = express();
+import HttpServer from './interfaces/http';
+import env from './utils/env';
+import { Container } from './utils/container';
+import { ControllerContext } from './types/controller';
 
-app.use(
-  cors(),
-  express.json(),
-);
+export class App {
+  start(): void {
+    const container = new Container();
+    const app = this.createHttpServer(container.createContainer());
+    const server = http.createServer(app);
 
-app.get('/', (req, res) => {
-  res.send({
-    ok: 'show de banda',
-  });
-});
+    server.listen(env.httpPort);
+  }
 
-app.listen(env.httpPort, () => {
+  private createHttpServer(container: ControllerContext) {
+    const httpServer = new HttpServer(container);
+    return httpServer.create();
+  };
+}
+
+const app = new App();
+
+setImmediate(() => {
+  app.start();
   console.log('Web chat initialized');
 });
