@@ -8,6 +8,8 @@ import { MessageService } from '../services/message';
 
 import { RepositoryContainer } from '../types/repository';
 import { ServiceContainer } from '../types/service';
+import { RoomRepository } from '../repositories/room';
+import { RoomService } from '../services/room';
 
 export class Container {
   private createRepositoryContainer(): RepositoryContainer {
@@ -19,7 +21,11 @@ export class Container {
       messageRepository: new MessageRepository({
         database: knex,
         tableName: 'messages',
-      })
+      }),
+      roomRepository: new RoomRepository({
+        database: knex,
+        tableName: 'rooms',
+      }),
     }
   }
 
@@ -27,6 +33,7 @@ export class Container {
     return {
       userService: new UserService(respositoryContainer),
       messageService: new MessageService(respositoryContainer),
+      roomService: new RoomService(respositoryContainer),
     }
   }
 

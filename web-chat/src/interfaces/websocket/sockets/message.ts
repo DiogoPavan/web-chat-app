@@ -1,4 +1,3 @@
-import { Socket, Server } from 'socket.io';
 import { SocketContext, ISocket } from '../../../types/interface';
 
 const users = [] as {
@@ -36,6 +35,7 @@ export class MessageSocket implements ISocket {
   async joinRoom({ username, roomId }) {
     const user = { id: this.socket.id, username, roomId };
     users.push(user);
+
     this.socket.join(user.roomId);
 
     const messages = await this.messageService.getMessagesByRoomId(roomId);

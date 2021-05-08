@@ -5,6 +5,7 @@ import path from 'path';
 import { UserController } from './controllers/user';
 import { HttpServerConfig, IController } from '../../types/interface';
 import { errorHandler } from './middlewares/errorHandler';
+import { RoomController } from './controllers/room';
 
 export class HttpServer {
   private context: HttpServerConfig;
@@ -38,7 +39,8 @@ export class HttpServer {
 
   setupRoutes(app: express.Application) {
     [
-      new UserController(this.context)
+      new UserController(this.context),
+      new RoomController(this.context),
     ]
       .forEach((route: IController) => {
         const router = express.Router({ mergeParams: true });
