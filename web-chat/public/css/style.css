@@ -38,24 +38,11 @@ a {
 	font-size: 17px;
 }
 
-/* Chat Page */
-
 .chat-container {
 	max-width: 1100px;
 	background: #fff;
 	margin: 30px auto;
 	overflow: hidden;
-}
-
-.chat-header {
-	background: var(--dark-color-a);
-	color: #fff;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-	padding: 15px;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
 }
 
 .chat-main {
@@ -126,54 +113,45 @@ a {
 	flex: 1;
 }
 
-/* Join Page */
-.join-container {
+.div-container {
 	max-width: 500px;
 	margin: 80px auto;
 	color: #fff;
 }
 
-.join-header {
-	text-align: center;
-	padding: 20px;
-	background: var(--dark-color-a);
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-}
-
-.join-main {
+.main-content {
 	padding: 30px 40px;
 	background: var(--dark-color-b);
 }
 
-.join-main p {
+.main-content p {
 	margin-bottom: 20px;
 }
 
-.join-main .form-control {
+.main-content .form-control {
 	margin-bottom: 20px;
 }
 
-.join-main label {
+.main-content label {
 	display: block;
 	margin-bottom: 5px;
 }
 
-.join-main input[type='text'] {
+.main-content input[type='text'], input[type='password'] {
 	font-size: 16px;
 	padding: 5px;
 	height: 40px;
 	width: 100%;
 }
 
-.join-main select {
+.main-content select {
 	font-size: 16px;
 	padding: 5px;
 	height: 40px;
 	width: 100%;
 }
 
-.join-main .btn {
+.main-content .btn {
 	margin-top: 20px;
 	width: 100%;
 }
@@ -186,4 +164,14 @@ a {
 	.chat-sidebar {
 		display: none;
 	}
+}
+
+.success-message {
+  font-weight: bold;
+	color: var(--success-color);
+}
+
+.error-message {
+  font-weight: bold;
+	color: var(--error-color);
 }

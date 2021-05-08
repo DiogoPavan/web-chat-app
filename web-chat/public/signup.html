@@ -11,37 +11,39 @@
 			crossorigin="anonymous"
 		/>
 		<link rel="stylesheet" href="css/style.css" />
-		<title>ChatCord App</title>
+		<title>Web chat</title>
 	</head>
 	<body>
 		<div class="div-container">
+      <span id="message"></span>
 			<main class="main-content">
-				<form action="chat.html">
+				<form id="singup-form">
 					<div class="form-control">
 						<label for="username">Username</label>
 						<input
 							type="text"
 							name="username"
 							id="username"
-							placeholder="Enter username..."
+							placeholder="Enter a username"
 							required
 						/>
 					</div>
-					<div class="form-control">
-						<label for="room">Room</label>
-						<select name="room" id="room">
-							<option value="JavaScript">JavaScript</option>
-							<option value="Python">Python</option>
-							<option value="PHP">PHP</option>
-							<option value="C#">C#</option>
-							<option value="Ruby">Ruby</option>
-							<option value="Java">Java</option>
-						</select>
+          <div class="form-control">
+						<label for="password">Password</label>
+						<input
+							type="password"
+							name="password"
+							id="password"
+							placeholder="Enter a strong password"
+							required
+						/>
 					</div>
-					<button type="submit" class="btn">Join Chat</button>
-          <a href="/signup"><button type="button" class="btn">Sign Up</button></a>
+					<button type="submit" class="btn">Sign up</button>
+          <a href="/"><button type="button" class="btn">Back to home page</button></a>
 				</form>
 			</main>
 		</div>
+
+    <script src="js/singup.js"></script>
 	</body>
 </html>
