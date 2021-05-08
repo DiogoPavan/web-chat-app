@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const env = {
+  nodeEnv: process.env.NODE_ENV as string,
   httpPort: parseInt(process.env.HTTP_PORT || '', 10),
   databaseHost: process.env.DB_HOST,
   databasePort: process.env.DB_PORT,
@@ -11,4 +12,4 @@ const env = {
   databaseName: process.env.DB_NAME,
 };
 
-export { env };
+export default env;

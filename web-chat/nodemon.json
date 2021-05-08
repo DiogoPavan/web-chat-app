@@ -1,6 +1,6 @@
 {
   "ignore": [
-    "migrations/*"
+    "database/*"
   ],
   "watch": [
     "./src/**/*.ts"
