@@ -16,12 +16,18 @@ export default class HttpServer {
   create(): express.Application {
     const app = express();
 
-    app.use(express.static(path.join(__dirname, '..', '..', '..', 'public')));
+    const publicPath = path.join(__dirname, '..', '..', '..', 'public')
+
+    app.use(express.static(publicPath));
 
     app.use(
       cors(),
       express.json(),
     );
+
+    app.get('/signup', function(req, res) {
+      res.sendFile(publicPath + '/signup.html');
+    });
 
     this.setupRoutes(app);
 

@@ -10,9 +10,9 @@ export default class UserService implements IUserService {
     this.userRepository = userRepository
   }
 
-  async singUp(user: User): Promise<User> {
-    const { name, password } = user;
-    const existingUser = await this.userRepository.findByName(name);
+  async signUp(user: User): Promise<User> {
+    const { username, password } = user;
+    const existingUser = await this.userRepository.findByUsername(username);
 
     if (existingUser) {
       throw new Error('An user with this username already exists');
@@ -20,8 +20,8 @@ export default class UserService implements IUserService {
 
     const hashPassword = await bcrypt.hash(password, 10);
 
-    return this.userRepository.singUp({
-      name,
+    return this.userRepository.signUp({
+      username,
       password: hashPassword,
     })
   }

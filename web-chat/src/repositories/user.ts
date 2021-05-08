@@ -15,23 +15,23 @@ export default class UserRepository implements IUserRepository {
     this.tableName = tableName
   }
 
-  async singUp(user: User): Promise<User> {
-    const { name, password } = user;
+  async signUp(user: User): Promise<User> {
+    const { username, password } = user;
     const id = uuidv4();
 
     await this.database(this.tableName).insert({
       id,
-      name,
+      username,
       password
     });
 
     return {
       id,
-      name,
+      username,
     };
   }
 
-  async findByName(name: string): Promise<User> {
-    return this.database(this.tableName).select('*').where({ name }).first();
+  async findByUsername(username: User['username']): Promise<User> {
+    return this.database(this.tableName).select('*').where({ username }).first();
   }
 }

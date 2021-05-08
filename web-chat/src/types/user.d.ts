@@ -1,14 +1,14 @@
 export type User = {
   id?: string,
-  name: string,
+  username: string,
   password?: string,
 };
 
 export interface IUserRepository {
-  singUp(user: User): Promise<User>;
-  findByName(name: string): Promise<User>;
+  signUp(user: User): Promise<User>;
+  findByUsername(username: User['username']): Promise<User>;
 }
 
 export interface IUserService {
-  singUp(user: User): Promise<User>;
+  signUp(user: User): Promise<User>;
 }

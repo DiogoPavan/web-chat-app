@@ -13,13 +13,13 @@ export default class UserController implements IController {
   register(router: Router): void {
     router
       .route('/users')
-      .post(this.singUp.bind(this));
+      .post(this.signUp.bind(this));
   }
 
-  async singUp(request: Request, response: Response, next: NextFunction) {
+  async signUp(request: Request, response: Response, next: NextFunction) {
     try {
-      const { name, password } = request.body;
-      const user = await this.userService.singUp({ name, password });
+      const { username, password } = request.body;
+      const user = await this.userService.signUp({ username, password });
 
       return response.status(201).send({
         message: 'User successfully registered',
