@@ -3,14 +3,14 @@ import cors from 'cors';
 import path from 'path';
 
 import UserController from './controllers/user';
-import { ControllerContext, IController } from '../../types/controller';
+import { HttpServerConfig, IController } from '../../types/interface';
 import { errorHandler } from './middlewares/errorHandler';
 
-export default class HttpServer {
-  private container: ControllerContext;
+export class HttpServer {
+  private context: HttpServerConfig;
 
-  constructor(container: ControllerContext) {
-    this.container = container;
+  constructor(context: HttpServerConfig) {
+    this.context = context;
   }
 
   create(): express.Application {
@@ -38,7 +38,7 @@ export default class HttpServer {
 
   setupRoutes(app: express.Application) {
     [
-      new UserController(this.container)
+      new UserController(this.context)
     ]
       .forEach((route: IController) => {
         const router = express.Router({ mergeParams: true });

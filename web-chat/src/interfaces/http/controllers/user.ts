@@ -1,13 +1,13 @@
 import { Router, Request, Response, NextFunction } from 'express';
 
-import { ControllerContext, IController } from '../../../types/controller';
+import { ControllerContext, IController } from '../../../types/interface';
 import { IUserService } from '../../../types/user';
 
 export default class UserController implements IController {
   private userService: IUserService;
 
-  constructor(container: ControllerContext) {
-    this.userService = container.userService;
+  constructor(context: ControllerContext) {
+    this.userService = context.container.userService;
   }
 
   register(router: Router): void {

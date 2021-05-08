@@ -1,23 +1,35 @@
+import { WebSocketServerConfig } from './types/interface.d';
 import * as http from 'http';
+import { Server } from 'socket.io';
 
-import HttpServer from './interfaces/http';
+import { HttpServer } from './interfaces/http';
 import env from './utils/env';
 import { Container } from './utils/container';
-import { ControllerContext } from './types/controller';
+import { ControllerContext, HttpServerConfig } from './types/interface';
+import { WebSocketServer } from './interfaces/websocket';
 
 export class App {
   start(): void {
-    const container = new Container();
-    const app = this.createHttpServer(container.createContainer());
+    const container = new Container().createContainer();
+    const app = this.createHttpServer({
+      container,
+    });
     const server = http.createServer(app);
+
+    this.connectWebsocket({ server, container });
 
     server.listen(env.httpPort);
   }
 
-  private createHttpServer(container: ControllerContext) {
-    const httpServer = new HttpServer(container);
+  private createHttpServer(config: HttpServerConfig) {
+    const httpServer = new HttpServer(config);
     return httpServer.create();
   };
+
+  private connectWebsocket(config: WebSocketServerConfig) {
+    const websocketServer = new WebSocketServer(config);
+    websocketServer.connect();
+  }
 }
 
 const app = new App();
