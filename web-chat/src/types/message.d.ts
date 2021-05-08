@@ -7,8 +7,10 @@ export type Message = {
 
 export interface IMessageRepository {
   createMessage(message: Message): Promise<Message>;
+  getMessagesByRoomId(roomId: Message['roomId']): Promise<Message[]>;
 }
 
 export interface IMessageService {
   createMessage(message: Message): Promise<Message>;
+  getMessagesByRoomId(roomId: Message['roomId']): Promise<Message[]>;
 }

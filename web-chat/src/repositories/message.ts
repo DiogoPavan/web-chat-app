@@ -25,4 +25,19 @@ export class MessageRepository implements IMessageRepository {
 
     return message;
   }
+
+  async getMessagesByRoomId(roomId: string): Promise<Message[]> {
+    return this.database(this.tableName)
+      .join('users', 'messages.userId', 'users.id')
+      .select([
+        'message',
+        'messages.createdAt',
+        'users.username'
+      ])
+      .where({
+        roomId,
+      })
+      .limit(50)
+      .orderBy('messages.createdAt', 'desc');
+  }
 }
