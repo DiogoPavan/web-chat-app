@@ -1,10 +1,10 @@
 import bcrypt from 'bcrypt';
 
 import { ServiceContext } from '../types/service';
-import { IUserService, User, IUserRepository } from '../types/user';
+import { IUserService, User } from '../types/user';
 
-export default class UserService implements IUserService {
-  private userRepository: IUserRepository;
+export class UserService implements IUserService {
+  private userRepository: ServiceContext['userRepository'];
 
   constructor({ userRepository }: ServiceContext) {
     this.userRepository = userRepository

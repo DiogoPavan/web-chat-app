@@ -1,5 +1,6 @@
 import { Knex } from 'knex';
 
+import { IMessageRepository } from './message';
 import { IUserRepository } from './user';
 
 export type RepositoryContext = {
@@ -9,6 +10,7 @@ export type RepositoryContext = {
 
 export type RepositoryContainer = {
   userRepository: IUserRepository;
+  messageRepository: IMessageRepository;
 };
 
 export type Database = Knex;

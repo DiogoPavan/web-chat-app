@@ -1,9 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { User, IUserRepository } from '../types/user';
+import { IMessageRepository, Message } from '../types/message';
 import { RepositoryContext } from '../types/repository';
 
-export class UserRepository implements IUserRepository {
+export class MessageRepository implements IMessageRepository {
   private database: RepositoryContext['database'];
   private tableName: RepositoryContext['tableName'];
 
@@ -15,23 +15,14 @@ export class UserRepository implements IUserRepository {
     this.tableName = tableName;
   }
 
-  async signUp(user: User): Promise<User> {
-    const { username, password } = user;
+  async createMessage(message: Message): Promise<Message> {
     const id = uuidv4();
 
     await this.database(this.tableName).insert({
       id,
-      username,
-      password
+      ...message,
     });
 
-    return {
-      id,
-      username,
-    };
-  }
-
-  async findByUsername(username: User['username']): Promise<User> {
-    return this.database(this.tableName).select('*').where({ username }).first();
+    return message;
   }
 }

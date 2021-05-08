@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import path from 'path';
 
-import UserController from './controllers/user';
+import { UserController } from './controllers/user';
 import { HttpServerConfig, IController } from '../../types/interface';
 import { errorHandler } from './middlewares/errorHandler';
 
