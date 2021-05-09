@@ -1,7 +1,5 @@
 const chatForm = document.getElementById('chat-form');
 const chatMessages = document.querySelector('.chat-messages');
-const roomName = document.getElementById('room-name');
-const userList = document.getElementById('users');
 
 const token = sessionStorage.getItem('token');
 const roomId = sessionStorage.getItem('roomId');
@@ -12,10 +10,8 @@ const socket = io({
   }
 });
 
-// Join chatroom;
 socket.emit('joinRoom', { roomId });
 
-// Message from server;
 socket.on('messages-join-room', messages => {
     console.log(messages);
 
@@ -29,33 +25,27 @@ socket.on('message', message => {
 
   outputMessage(message);
 
-  //Scroll down
   chatMessages.scrollTop = chatMessages.scrollHeight;
 });
 
 socket.on('connect_error', (err) => {
-  console.log(err.message); // prints the message associated with the error
+  console.log(err.message);
 });
 
-// message submit
 chatForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    // get message text
     const msg = e.target.elements.msg.value;
 
-    // emit message to server;
     socket.emit('chatMessage', {
       message: msg,
       roomId,
     });
 
-    //clear input
     e.target.elements.msg.value = '';
     e.target.elements.msg.focus();
 });
 
-// Output message to DOM
 function outputMessage(message) {
     const div = document.createElement('div');
     div.classList.add('message');
@@ -67,14 +57,16 @@ function outputMessage(message) {
     document.querySelector('.chat-messages').appendChild(div);
 }
 
-// add room name to DOM
-function outputRoomName(room) {
-    roomName.innerText = room;
-};
-
-//add users
-function outputUsers(users) {
-    userList.innerHTML = `
-        ${users.map(user => `<li>${user.username}</li>`).join('')}
-    `
+function leaveRoom() {
+  sessionStorage.removeItem('roomId');
+  sessionStorage.removeItem('roomName');
 }
+
+function onLoadWindow(e) {
+  const roomName = document.getElementById('room-name');
+  const room = sessionStorage.getItem('roomName');
+
+  roomName.innerText = room;
+}
+
+window.addEventListener('load', onLoadWindow);

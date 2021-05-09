@@ -17,33 +17,18 @@
 		<div class="div-container">
       <span id="message"></span>
 			<main class="main-content">
-				<form id="singup-form">
+				<form id="lobby-form">
 					<div class="form-control">
-						<label for="username">Username</label>
-						<input
-							type="text"
-							name="username"
-							id="username"
-							placeholder="Enter a username"
-							required
-						/>
-					</div>
-          <div class="form-control">
-						<label for="password">Password</label>
-						<input
-							type="password"
-							name="password"
-							id="password"
-							placeholder="Enter a strong password"
-							required
-						/>
-					</div>
-					<button type="submit" class="btn">Sign up</button>
-          <a href="/"><button type="button" class="btn">Back to sign in page</button></a>
+            <div class="form-control">
+              <label for="room">Choose a room to join</label>
+              <select name="room" id="room-select"></select>
+            </div>
+					<button type="submit" class="btn">Join</button>
+          <a href="/"><button onclick="signOut()" type="button" class="btn">Sign out</button></a>
 				</form>
 			</main>
 		</div>
 
-    <script src="js/singup.js"></script>
+    <script src="js/lobby.js"></script>
 	</body>
 </html>
