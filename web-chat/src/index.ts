@@ -1,6 +1,5 @@
 import { WebSocketServerConfig } from './types/interface.d';
 import * as http from 'http';
-import { Server } from 'socket.io';
 
 import { HttpServer } from './interfaces/http';
 import env from './utils/env';
@@ -16,7 +15,7 @@ export class App {
     });
     const server = http.createServer(app);
 
-    this.connectWebsocket({ server, container });
+    this.connectWebsocket({ server, container, env });
 
     server.listen(env.appPort);
   }

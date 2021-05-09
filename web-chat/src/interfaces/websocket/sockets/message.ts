@@ -20,12 +20,16 @@ export class MessageSocket implements ISocket {
   private messageService: SocketContext['container']['messageService'];
   private roomService: SocketContext['container']['roomService'];
 
-  constructor({ socket, io, container }: SocketContext) {
+  private botName: SocketContext['botName'];
+
+  constructor({ socket, io, container, botName }: SocketContext) {
     this.socket = socket;
     this.io = io;
 
     this.messageService = container.messageService;
     this.roomService = container.roomService;
+
+    this.botName = botName;
   }
 
   listener() {
@@ -36,7 +40,7 @@ export class MessageSocket implements ISocket {
   async joinRoom({ roomId }) {
     const username = this.socket.username;
 
-    if (username !== 'BOT') {
+    if (username !== this.botName) {
       this.socket.join(roomId);
 
       const messages = await this.messageService.getMessagesByRoomId(roomId);

@@ -3,6 +3,7 @@ import { Router } from 'express';
 import * as http from 'http';
 
 import { ServiceContainer } from './service';
+import { Env } from './env';
 
 export type ControllerContext = {
   container: ServiceContainer;
@@ -24,7 +25,8 @@ export type SocketWebChat = Socket & {
 export type SocketContext = {
   socket: SocketWebChat;
   io: Server;
-  container: ServiceContainer
+  container: ServiceContainer;
+  botName: string;
 }
 
 export interface ISocket {
@@ -34,4 +36,5 @@ export interface ISocket {
 export type WebSocketServerConfig = {
   server: http.Server;
   container: ServiceContainer;
+  env: Env;
 };
