@@ -4,7 +4,7 @@ dotenv.config();
 
 const env = {
   nodeEnv: process.env.NODE_ENV as string,
-  httpPort: parseInt(process.env.HTTP_PORT || '', 10),
+  appPort: parseInt(process.env.APP_PORT || '', 10),
 
   databaseHost: process.env.DB_HOST,
   databasePort: process.env.DB_PORT,

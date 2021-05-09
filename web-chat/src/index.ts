@@ -5,7 +5,7 @@ import { Server } from 'socket.io';
 import { HttpServer } from './interfaces/http';
 import env from './utils/env';
 import { Container } from './utils/container';
-import { ControllerContext, HttpServerConfig } from './types/interface';
+import { HttpServerConfig } from './types/interface';
 import { WebSocketServer } from './interfaces/websocket';
 
 export class App {
@@ -18,7 +18,7 @@ export class App {
 
     this.connectWebsocket({ server, container });
 
-    server.listen(env.httpPort);
+    server.listen(env.appPort);
   }
 
   private createHttpServer(config: HttpServerConfig) {
