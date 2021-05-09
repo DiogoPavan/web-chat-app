@@ -2,7 +2,7 @@ export type Message = {
   userId: string,
   roomId: string,
   message: string,
-  date?: string,
+  createdAt?: string,
 };
 
 export interface IMessageRepository {

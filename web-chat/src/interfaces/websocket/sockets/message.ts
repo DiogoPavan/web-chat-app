@@ -1,18 +1,5 @@
 import { SocketContext, ISocket } from '../../../types/interface';
 
-const users = [] as {
-  id: string,
-  username: string,
-  roomId: string,
-}[];
-
-function formatMessage(username, text) {
-  return {
-    username,
-    text,
-    time: '25-25-25',
-  }
-}
 export class MessageSocket implements ISocket {
   private socket: SocketContext['socket'];
   private io: SocketContext['io'];
@@ -56,20 +43,17 @@ export class MessageSocket implements ISocket {
     message,
     roomId,
   }) {
-    const STOCK_PATTERN = /\/stock=([^\s]*)/;
-
-    if (!message.match(STOCK_PATTERN)) {
-      await this.messageService.createMessage({
-        message,
-        userId: this.socket.userId!,
-        roomId,
-      });
-    }
+    const newMessage = await this.messageService.createMessage({
+      message,
+      userId: this.socket.userId!,
+      roomId,
+    });
 
     this.io.to(roomId).emit('message', {
       username: this.socket.username!,
       message,
       roomId,
+      createdAt: newMessage.createdAt,
     });
   }
 }

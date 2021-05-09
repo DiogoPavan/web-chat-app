@@ -9,6 +9,7 @@ module.exports = {
       user: env.databaseUser,
       password: env.databasePassword,
       database: env.databaseName,
+      dateStrings: true,
     },
     pool: {
       min: 2,

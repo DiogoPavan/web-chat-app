@@ -8,8 +8,26 @@ export class MessageService implements IMessageService {
     this.messageRepository = messageRepository
   }
 
+  private getCreatedAt() {
+    const date = new Date().toISOString();
+    return `${date.substr(0, 10)} ${date.substr(11, 8)}`;
+  }
+
   async createMessage(message: Message): Promise<Message> {
-    return this.messageRepository.createMessage(message);
+    const STOCK_PATTERN = /\/stock=([^\s]*)/;
+
+    let createdAt = this.getCreatedAt();
+
+    if (!message.message.match(STOCK_PATTERN)) {
+      const insertedMessage = await this.messageRepository.createMessage(message);
+
+      createdAt = insertedMessage.createdAt!;
+    };
+
+    return {
+      ...message,
+      createdAt,
+    };
   }
 
   async getMessagesByRoomId(roomId: string): Promise<Message[]> {

@@ -18,12 +18,21 @@ export class MessageRepository implements IMessageRepository {
   async createMessage(message: Message): Promise<Message> {
     const id = uuidv4();
 
-    await this.database(this.tableName).insert({
+    const [insertedMessage] = await this.database(this.tableName).insert({
       id,
       ...message,
+    }).then(() =>{
+      return this.database(this.tableName).select([
+        'id',
+        'createdAt',
+        'message',
+      ])
+      .where({
+        id,
+      });
     });
 
-    return message;
+    return insertedMessage;
   }
 
   async getMessagesByRoomId(roomId: string): Promise<Message[]> {
