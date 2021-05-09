@@ -56,15 +56,20 @@ export class MessageSocket implements ISocket {
     message,
     roomId,
   }) {
-    await this.messageService.createMessage({
-      message,
-      userId: this.socket.userId!,
-      roomId,
-    });
+    const STOCK_PATTERN = /\/stock=([^\s]*)/;
+
+    if (!message.match(STOCK_PATTERN)) {
+      await this.messageService.createMessage({
+        message,
+        userId: this.socket.userId!,
+        roomId,
+      });
+    }
 
     this.io.to(roomId).emit('message', {
       username: this.socket.username!,
       message,
+      roomId,
     });
   }
 }
