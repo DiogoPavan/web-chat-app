@@ -18,54 +18,49 @@ export class MessageSocket implements ISocket {
   private io: SocketContext['io'];
 
   private messageService: SocketContext['container']['messageService'];
+  private roomService: SocketContext['container']['roomService'];
 
   constructor({ socket, io, container }: SocketContext) {
     this.socket = socket;
     this.io = io;
 
     this.messageService = container.messageService;
+    this.roomService = container.roomService;
   }
 
   listener() {
     this.socket.on('joinRoom', this.joinRoom.bind(this));
     this.socket.on('chatMessage', this.createMessage.bind(this));
-    this.socket.on('disconnect', this.disconnect.bind(this));
   }
 
-  async joinRoom({ username, roomId }) {
-    const user = { id: this.socket.id, username, roomId };
-    users.push(user);
+  async joinRoom({ roomId }) {
+    const username = this.socket.username;
 
-    this.socket.join(user.roomId);
+    if (username !== 'BOT') {
+      this.socket.join(roomId);
 
-    const messages = await this.messageService.getMessagesByRoomId(roomId);
+      const messages = await this.messageService.getMessagesByRoomId(roomId);
 
-    this.socket.emit('messages-join-room', messages);
+      this.socket.emit('messages-join-room', messages);
+    } else {
+      const rooms = await this.roomService.findAll();
+      rooms.forEach((room) => this.socket.join(room.id))
+    }
   }
 
   async createMessage({
     message,
-    userId,
     roomId,
   }) {
-    const user = users.find(user => user.id === this.socket.id);
-
     await this.messageService.createMessage({
       message,
-      userId,
+      userId: this.socket.userId!,
       roomId,
     });
 
-    this.io.to(user!.roomId).emit('message', formatMessage(user!.username, message));
-  }
-
-  async disconnect() {
-    const user =  users.find(user => user.id === this.socket.id);
-    if (user) {
-      this.io.to(user.roomId).emit('roomUsers', {
-          room: user.roomId,
-          users: users.filter(user => user.roomId === user.roomId),
-      })
-    }
+    this.io.to(roomId).emit('message', {
+      username: this.socket.username!,
+      message,
+    });
   }
 }

@@ -16,8 +16,13 @@ export type HttpServerConfig = {
   container: ServiceContainer;
 };
 
+export type SocketWebChat = Socket & {
+  userId?: string;
+  username?: string;
+}
+
 export type SocketContext = {
-  socket: Socket;
+  socket: SocketWebChat;
   io: Server;
   container: ServiceContainer
 }

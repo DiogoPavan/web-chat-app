@@ -32,6 +32,9 @@ export class UserRepository implements IUserRepository {
   }
 
   async findByUsername(username: User['username']): Promise<User> {
-    return this.database(this.tableName).select('*').where({ username }).first();
+    return this.database(this.tableName).select([
+      'id',
+      'username',
+    ]).where({ username }).first();
   }
 }

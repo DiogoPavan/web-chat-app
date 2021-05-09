@@ -1,6 +1,7 @@
 import { Server } from 'socket.io';
 
 import { WebSocketServerConfig } from './../../types/interface';
+import authorization from './middlewares/authorization';
 import { MessageSocket } from './sockets/message';
 
 export class WebSocketServer {
@@ -15,6 +16,7 @@ export class WebSocketServer {
   connect() {
     const io = new Server(this.server);
 
+    io.use(authorization);
     io.on('connection', socket => {
       const messageSocket = new MessageSocket({
         socket,
