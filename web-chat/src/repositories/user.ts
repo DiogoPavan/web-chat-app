@@ -35,6 +35,7 @@ export class UserRepository implements IUserRepository {
     return this.database(this.tableName).select([
       'id',
       'username',
+      'password',
     ]).where({ username }).first();
   }
 }

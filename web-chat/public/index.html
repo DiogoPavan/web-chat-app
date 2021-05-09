@@ -15,33 +15,39 @@
 	</head>
 	<body>
 		<div class="div-container">
+      <span id="message"></span>
 			<main class="main-content">
-				<form action="chat.html">
+				<form id='index-form' action="chat.html">
 					<div class="form-control">
 						<label for="username">Username</label>
 						<input
 							type="text"
 							name="username"
 							id="username"
-							placeholder="Enter username..."
+							placeholder="Your username"
+							required
+						/>
+					</div>
+          <div class="form-control">
+						<label for="password">Password</label>
+						<input
+							type="password"
+							name="password"
+							id="password"
+							placeholder="Your strong password"
 							required
 						/>
 					</div>
 					<div class="form-control">
 						<label for="room">Room</label>
-						<select name="room" id="room">
-							<option value="JavaScript">JavaScript</option>
-							<option value="Python">Python</option>
-							<option value="PHP">PHP</option>
-							<option value="C#">C#</option>
-							<option value="Ruby">Ruby</option>
-							<option value="Java">Java</option>
-						</select>
+						<select name="room" id="room-select"></select>
 					</div>
 					<button type="submit" class="btn">Join Chat</button>
           <a href="/signup"><button type="button" class="btn">Sign Up</button></a>
 				</form>
 			</main>
 		</div>
+
+    <script src="js/index.js"></script>
 	</body>
 </html>

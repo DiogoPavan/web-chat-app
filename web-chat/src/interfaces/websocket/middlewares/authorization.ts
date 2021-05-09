@@ -23,7 +23,6 @@ export default async (socket, next) => {
 
     return next();
   } catch (error) {
-    console.log(error);
     next(error);
   }
 }

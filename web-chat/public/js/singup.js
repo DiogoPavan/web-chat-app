@@ -1,7 +1,8 @@
-const message = document.getElementById('message');
+const form = document.getElementById('singup-form');
 
 async function singupSubmit(e) {
   e.preventDefault();
+
   const elements = e.target.elements;
   const username = elements.username.value;
   const password = elements.password.value;
@@ -21,12 +22,10 @@ async function singupSubmit(e) {
 
   const response = await postSingup.json();
 
-  message.innerText = '';
+  const message = document.getElementById('message');
   message.classList = '';
-  message.classList.add(postSingup.status == 201 ? 'success-message' : 'error-message');
+  message.classList.add(postSingup.status === 201 ? 'success-message' : 'error-message');
   message.innerText = response.message;
 }
-
-const form = document.getElementById('singup-form');
 
 form.addEventListener('submit', singupSubmit);

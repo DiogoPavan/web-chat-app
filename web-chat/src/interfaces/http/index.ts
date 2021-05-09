@@ -30,6 +30,10 @@ export class HttpServer {
       res.sendFile(publicPath + '/signup.html');
     });
 
+    app.get('/chat', function(req, res) {
+      res.sendFile(publicPath + '/chat.html');
+    });
+
     this.setupRoutes(app);
 
     app.use(errorHandler);

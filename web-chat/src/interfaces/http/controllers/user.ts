@@ -41,7 +41,9 @@ export class UserController implements IController {
 
       return response.status(HttpStatus.OK).send({
         message: 'User successfully authenticated',
-        data: token,
+        data: {
+          token,
+        },
       });
     } catch(err) {
       next(err);

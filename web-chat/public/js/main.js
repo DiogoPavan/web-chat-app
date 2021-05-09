@@ -2,30 +2,39 @@ const chatForm = document.getElementById('chat-form');
 const chatMessages = document.querySelector('.chat-messages');
 const roomName = document.getElementById('room-name');
 const userList = document.getElementById('users');
-const socket = io();
 
-// Get username and romm from URL;
-const { username, room } = Qs.parse(location.search, {
-    ignoreQueryPrefix: true,
+const token = sessionStorage.getItem('token');
+const roomId = sessionStorage.getItem('roomId');
+
+const socket = io({
+  auth: {
+    token,
+  }
 });
 
 // Join chatroom;
-socket.emit('joinRoom', { username, room });
-
-// get room and users
-socket.on('roomUsers', ({ room, users}) => {
-    outputRoomName(room);
-    outputUsers(users);
-})
+socket.emit('joinRoom', { roomId });
 
 // Message from server;
-socket.on('message', message => {
-    console.log(message);
+socket.on('messages-join-room', messages => {
+    console.log(messages);
 
-    outputMessage(message);
+    messages.forEach(message => outputMessage(message));
 
-    //Scroll down
     chatMessages.scrollTop = chatMessages.scrollHeight;
+});
+
+socket.on('message', message => {
+  console.log(message);
+
+  outputMessage(message);
+
+  //Scroll down
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+});
+
+socket.on('connect_error', (err) => {
+  console.log(err.message); // prints the message associated with the error
 });
 
 // message submit
@@ -36,7 +45,10 @@ chatForm.addEventListener('submit', (e) => {
     const msg = e.target.elements.msg.value;
 
     // emit message to server;
-    socket.emit('chatMessage', msg);
+    socket.emit('chatMessage', {
+      message: msg,
+      roomId,
+    });
 
     //clear input
     e.target.elements.msg.value = '';
@@ -48,9 +60,9 @@ function outputMessage(message) {
     const div = document.createElement('div');
     div.classList.add('message');
     div.innerHTML = `
-        <p class="meta">${message.username} <span>${message.time}</span></p>
+        <p class="meta">${message.username} <span>${message.createdAt}</span></p>
         <p class="text">
-            ${message.text}
+            ${message.message}
         </p> `;
     document.querySelector('.chat-messages').appendChild(div);
 }
