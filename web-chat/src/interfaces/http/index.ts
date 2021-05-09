@@ -17,22 +17,12 @@ export class HttpServer {
   create(): express.Application {
     const app = express();
 
-    const publicPath = path.join(__dirname, '..', '..', '..', 'public')
-
-    app.use(express.static(publicPath));
-
     app.use(
       cors(),
       express.json(),
     );
 
-    app.get('/signup', function(req, res) {
-      res.sendFile(publicPath + '/signup.html');
-    });
-
-    app.get('/chat', function(req, res) {
-      res.sendFile(publicPath + '/chat.html');
-    });
+    this.setupStaticFrontend(app);
 
     this.setupRoutes(app);
 
@@ -40,6 +30,24 @@ export class HttpServer {
 
     return app;
   };
+
+  setupStaticFrontend(app: express.Application) {
+    const publicPath = path.join(__dirname, '..', '..', '..', 'public')
+
+    app.use(express.static(publicPath));
+
+    app.get('/signup', (req, res) => {
+      res.sendFile(publicPath + '/signup.html');
+    });
+
+    app.get('/chat', (req, res) => {
+      res.sendFile(publicPath + '/chat.html');
+    });
+
+    app.get('/lobby', (req, res) => {
+      res.sendFile(publicPath + '/lobby.html');
+    });
+  }
 
   setupRoutes(app: express.Application) {
     [
