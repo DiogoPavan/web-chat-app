@@ -1,6 +1,6 @@
 import knex from 'knex';
-import knexfile = require('../knexfile');
 import env from '../src/utils/env';
+import knexfile = require('../knexfile');
 
 const connection = knex(knexfile[env.nodeEnv]);
 
