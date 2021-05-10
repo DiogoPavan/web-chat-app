@@ -4,6 +4,9 @@ const socketUtil = require('./utils/socket');
 const startBot = async () => {
   redisUtil.createClient();
   await socketUtil.configSocket();
-}
+};
 
-startBot();
+setImmediate(() => {
+  startBot();
+  console.log('Bot initialized');
+});

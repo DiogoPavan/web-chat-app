@@ -7,6 +7,6 @@ const env = {
   redisHost: process.env.REDIS_HOST,
   redisPort: process.env.REDIS_PORT,
   stooqBaseUrl: process.env.STOOQ_BASE_URL,
-}
+};
 
 module.exports = env;

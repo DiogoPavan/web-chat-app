@@ -17,11 +17,11 @@ const listenMessage = async (data) => {
     const dataStockQuote = {
       message,
       roomId: data.roomId,
-    }
+    };
 
     redisUtil.getRedisClient().publish('message-stock-quote', JSON.stringify(dataStockQuote));
   }
-}
+};
 
 const configSocket = async () => {
   const token = await apiUtil.requestTokenApi();
@@ -29,13 +29,13 @@ const configSocket = async () => {
   const socket = io(webChatServerUrl, {
     auth: {
       token,
-    }
+    },
   });
-  
+
   socket.emit('joinRoom', { username: botName });
   socket.on('message', listenMessage);
-}
+};
 
 module.exports = {
   configSocket,
-}
+};

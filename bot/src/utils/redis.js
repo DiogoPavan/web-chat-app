@@ -17,5 +17,5 @@ const getRedisClient = () => redisClient;
 
 module.exports = {
   createClient,
-  getRedisClient
-}
+  getRedisClient,
+};

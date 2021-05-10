@@ -6,24 +6,24 @@ const {
   stooqBaseUrl,
 } = require('./env');
 
-const getStockQuoteFromCsv = csv => {
-  const [, stockData] = csv.split('\n')
-  const { 6: close} = stockData.split(',')
+const getStockQuoteFromCsv = (csv) => {
+  const [, stockData] = csv.split('\n');
+  const { 6: close } = stockData.split(',');
 
   return close;
-}
+};
 
 const requestStockQuote = async (stockCode) => {
   try {
-    const url = `${stooqBaseUrl}&s=${stockCode}`
+    const url = `${stooqBaseUrl}&s=${stockCode}`;
     const response = await axios.get(url);
 
     return getStockQuoteFromCsv(response.data);
-  } catch(err) {
+  } catch (err) {
     console.log(err);
     return null;
   }
-}
+};
 
 const requestTokenApi = async () => {
   try {
@@ -33,12 +33,13 @@ const requestTokenApi = async () => {
     });
 
     return response.data.token;
-  } catch(err) {
+  } catch (err) {
     console.log(err);
+    throw new Error(err);
   }
-}
+};
 
 module.exports = {
   requestStockQuote,
   requestTokenApi,
-}
+};

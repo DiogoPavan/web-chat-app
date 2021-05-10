@@ -1,15 +1,12 @@
 const api = require('./api');
 
-const buildSuccessMessage = (stockCode, stockQuote) => 
-  `${stockCode.toUpperCase()} quote is $${stockQuote} per share.`
+const buildSuccessMessage = (stockCode, stockQuote) => `${stockCode.toUpperCase()} quote is $${stockQuote} per share.`;
 
-const buildFailureMessage = (stockCode) => 
-  `I had problems to find the ${stockCode.toUpperCase()} quote. I'm sorry!`
+const buildFailureMessage = (stockCode) => `I had problems to find the ${stockCode.toUpperCase()} quote. I'm sorry!`;
 
-const buildUnavailableMessage = (stockCode) =>
-  `Quote for ${stockCode.toUpperCase()} is unavailable.`
+const buildUnavailableMessage = (stockCode) => `Quote for ${stockCode.toUpperCase()} is unavailable.`;
 
-const buildEmptyMessage = () => 'Stock code is empty, send one.'
+const buildEmptyMessage = () => 'Stock code is empty, send one.';
 
 const buildMessage = (stockQuote, stockCode) => {
   let message;
@@ -23,7 +20,7 @@ const buildMessage = (stockQuote, stockCode) => {
   }
 
   return message;
-}
+};
 
 const getStockQuoteMessage = async (stockCode) => {
   try {
@@ -36,9 +33,10 @@ const getStockQuoteMessage = async (stockCode) => {
     return buildEmptyMessage();
   } catch (err) {
     console.log(err);
+    throw new Error(err);
   }
 };
 
 module.exports = {
   getStockQuoteMessage,
-}
+};
