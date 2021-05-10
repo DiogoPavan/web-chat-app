@@ -1,0 +1,55 @@
+version: '3.7'
+
+services:
+  redis:
+    image: redis:6
+    container_name: redis-web-chat
+    ports:
+      - 6379:6379
+    networks:
+      - networks-web-app
+
+  mysql:
+    image: mysql
+    restart: always
+    container_name: mysql-web-chat
+    environment:
+      MYSQL_ROOT_PASSWORD: TdNNgwm4_G
+      MYSQL_DATABASE: webchat
+    ports:
+      - 3306:3306
+    expose:
+      - '3306'
+    networks:
+      - networks-web-app
+
+  web-chat:
+    build:
+      context: ./web-chat
+      dockerfile: Dockerfile
+    container_name: web-chat
+    ports:
+      - 3000:3000
+    env_file: ./web-chat/.env
+    depends_on:
+      - redis
+      - mysql
+    networks:
+      - networks-web-app
+
+  bot:
+    build:
+      context: ./bot
+      dockerfile: Dockerfile
+    container_name: bot-chat
+    env_file: ./bot/.env
+    depends_on:
+      - web-chat
+      - redis
+      - mysql
+    networks:
+      - networks-web-app
+
+networks:
+  networks-web-app:
+    driver: "bridge"

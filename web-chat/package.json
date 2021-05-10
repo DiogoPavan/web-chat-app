@@ -10,6 +10,7 @@
     "dev": "nodemon src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
+    "db:wait": "node dist/src/utils/wait-connection.js",
     "migration:create": "./node_modules/knex/bin/cli.js migrate:make $MIGRATE_NAME --env development",
     "migration:up": "./node_modules/knex/bin/cli.js migrate:latest --env development",
     "migration:rollback": "./node_modules/knex/bin/cli.js migrate:rollback --env development"
@@ -22,6 +23,7 @@
     "cors": "^2.8.5",
     "dotenv": "^9.0.0",
     "express": "^4.17.1",
+    "is-port-reachable": "^3.0.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.95.4",
     "mysql2": "^2.2.5",
