@@ -1,7 +1,7 @@
 import { Server } from 'socket.io';
 import redis from 'redis';
 
-import { WebSocketServerConfig } from './../../types/interface';
+import { WebSocketServerConfig } from '../../types/interface';
 import authorization from './middlewares/authorization';
 import { MessageSocket } from './sockets/message';
 
@@ -28,7 +28,7 @@ export class WebSocketServer {
     redisClient.subscribe('message-stock-quote');
 
     io.use(authorization);
-    io.on('connection', socket => {
+    io.on('connection', (socket) => {
       messageSocket = new MessageSocket({
         socket,
         io,

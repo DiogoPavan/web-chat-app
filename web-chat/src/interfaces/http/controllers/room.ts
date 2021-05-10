@@ -1,4 +1,9 @@
-import { Router, Request, Response, NextFunction } from 'express';
+import {
+  Router,
+  Request,
+  Response,
+  NextFunction,
+} from 'express';
 import { HttpStatus } from '../../../types/enum';
 
 import { ControllerContext, IController } from '../../../types/interface';
@@ -16,14 +21,14 @@ export class RoomController implements IController {
       .get(this.findAll.bind(this));
   }
 
-  async findAll(_: Request, response: Response, next: NextFunction) {
+  async findAll(_: Request, response: Response, next: NextFunction): Promise<void> {
     try {
       const rooms = await this.roomService.findAll();
 
-      return response.status(HttpStatus.OK).send({
+      response.status(HttpStatus.OK).send({
         data: rooms,
-      })
-    } catch(err) {
+      });
+    } catch (err) {
       next(err);
     }
   }

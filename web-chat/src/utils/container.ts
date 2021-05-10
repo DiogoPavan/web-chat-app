@@ -1,4 +1,3 @@
-
 import knex from '../../database/connection';
 
 import { UserRepository } from '../repositories/user';
@@ -11,35 +10,29 @@ import { ServiceContainer } from '../types/service';
 import { RoomRepository } from '../repositories/room';
 import { RoomService } from '../services/room';
 
-export class Container {
-  private createRepositoryContainer(): RepositoryContainer {
-    return {
-      userRepository: new UserRepository({
-        database: knex,
-        tableName: 'users',
-      }),
-      messageRepository: new MessageRepository({
-        database: knex,
-        tableName: 'messages',
-      }),
-      roomRepository: new RoomRepository({
-        database: knex,
-        tableName: 'rooms',
-      }),
-    }
-  }
+const createRepositoryContainer = (): RepositoryContainer => ({
+  userRepository: new UserRepository({
+    database: knex,
+    tableName: 'users',
+  }),
+  messageRepository: new MessageRepository({
+    database: knex,
+    tableName: 'messages',
+  }),
+  roomRepository: new RoomRepository({
+    database: knex,
+    tableName: 'rooms',
+  }),
+});
 
-  private createServiceContainer(respositoryContainer: RepositoryContainer): ServiceContainer {
-    return {
-      userService: new UserService(respositoryContainer),
-      messageService: new MessageService(respositoryContainer),
-      roomService: new RoomService(respositoryContainer),
-    }
-  }
+const createServiceContainer = (respositoryContainer: RepositoryContainer): ServiceContainer => ({
+  userService: new UserService(respositoryContainer),
+  messageService: new MessageService(respositoryContainer),
+  roomService: new RoomService(respositoryContainer),
+});
 
-  createContainer() {
-    const respositoryContainer = this.createRepositoryContainer();
+export function createContainer(): ServiceContainer {
+  const respositoryContainer = createRepositoryContainer();
 
-    return this.createServiceContainer(respositoryContainer);
-  }
+  return createServiceContainer(respositoryContainer);
 }

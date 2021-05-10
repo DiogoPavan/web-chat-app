@@ -9,7 +9,7 @@ export class UserService implements IUserService {
   private userRepository: ServiceContext['userRepository'];
 
   constructor({ userRepository }: ServiceContext) {
-    this.userRepository = userRepository
+    this.userRepository = userRepository;
   }
 
   async signUp(user: User): Promise<User> {
@@ -25,7 +25,7 @@ export class UserService implements IUserService {
     return this.userRepository.signUp({
       username,
       password: hashPassword,
-    })
+    });
   }
 
   async signIn({ username, password }: User): Promise<string> {
@@ -33,11 +33,11 @@ export class UserService implements IUserService {
 
     if (!existingUser) {
       throw new Error('User does not exist');
-    };
+    }
 
     if (!(await bcrypt.compare(password, existingUser.password!))) {
       throw new Error('Incorrect password');
-    };
+    }
 
     const token = jwt.sign({
       id: existingUser.id,

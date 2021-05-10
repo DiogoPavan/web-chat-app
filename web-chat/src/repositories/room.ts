@@ -16,7 +16,7 @@ export class RoomRepository implements IRoomRepository {
   async findAll(): Promise<Rooms[]> {
     const room = await this.database(this.tableName).select([
       'id',
-      'name'
+      'name',
     ]);
 
     return room;

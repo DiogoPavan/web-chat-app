@@ -20,14 +20,14 @@ export type HttpServerConfig = {
 export type SocketWebChat = Socket & {
   userId?: string;
   username?: string;
-}
+};
 
 export type SocketContext = {
   socket: SocketWebChat;
   io: Server;
   container: ServiceContainer;
   botName: string;
-}
+};
 
 export interface ISocket {
   listener(): void;

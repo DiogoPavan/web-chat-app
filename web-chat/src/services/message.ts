@@ -5,7 +5,7 @@ export class MessageService implements IMessageService {
   private messageRepository: ServiceContext['messageRepository'];
 
   constructor({ messageRepository }: ServiceContext) {
-    this.messageRepository = messageRepository
+    this.messageRepository = messageRepository;
   }
 
   private getCreatedAt() {
@@ -22,7 +22,7 @@ export class MessageService implements IMessageService {
       const insertedMessage = await this.messageRepository.createMessage(message);
 
       createdAt = insertedMessage.createdAt!;
-    };
+    }
 
     return {
       ...message,

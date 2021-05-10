@@ -1,15 +1,14 @@
-import { WebSocketServerConfig } from './types/interface.d';
 import * as http from 'http';
 
-import { HttpServer } from './interfaces/http';
 import env from './utils/env';
-import { Container } from './utils/container';
-import { HttpServerConfig } from './types/interface';
+import { WebSocketServerConfig, HttpServerConfig } from './types/interface';
+import { HttpServer } from './interfaces/http';
+import { createContainer } from './utils/container';
 import { WebSocketServer } from './interfaces/websocket';
 
 export class App {
   start(): void {
-    const container = new Container().createContainer();
+    const container = createContainer();
     const app = this.createHttpServer({
       container,
     });
@@ -23,7 +22,7 @@ export class App {
   private createHttpServer(config: HttpServerConfig) {
     const httpServer = new HttpServer(config);
     return httpServer.create();
-  };
+  }
 
   private connectWebsocket(config: WebSocketServerConfig) {
     const websocketServer = new WebSocketServer(config);

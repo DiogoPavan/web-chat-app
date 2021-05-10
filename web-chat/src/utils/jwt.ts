@@ -1,9 +1,9 @@
 import env from './env';
 
-type JwtConfig ={
+type JwtConfig = {
   secret: string,
   expiresIn: string,
-}
+};
 
 export default {
   secret: env.authSecret,

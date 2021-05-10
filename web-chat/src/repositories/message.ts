@@ -21,16 +21,16 @@ export class MessageRepository implements IMessageRepository {
     const [insertedMessage] = await this.database(this.tableName).insert({
       id,
       ...message,
-    }).then(() =>{
-      return this.database(this.tableName).select([
+    }).then(() => (
+      this.database(this.tableName).select([
         'id',
         'createdAt',
         'message',
       ])
-      .where({
-        id,
-      });
-    });
+        .where({
+          id,
+        })
+    ));
 
     return insertedMessage;
   }
@@ -41,7 +41,7 @@ export class MessageRepository implements IMessageRepository {
       .select([
         'message',
         'messages.createdAt',
-        'users.username'
+        'users.username',
       ])
       .where({
         roomId,

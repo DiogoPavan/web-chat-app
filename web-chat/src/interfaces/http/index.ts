@@ -29,27 +29,27 @@ export class HttpServer {
     app.use(errorHandler);
 
     return app;
-  };
+  }
 
-  setupStaticFrontend(app: express.Application) {
-    const publicPath = path.join(__dirname, '..', '..', '..', 'public')
+  setupStaticFrontend(app: express.Application): void {
+    const publicPath = path.join(__dirname, '..', '..', '..', 'public');
 
     app.use(express.static(publicPath));
 
     app.get('/signup', (req, res) => {
-      res.sendFile(publicPath + '/signup.html');
+      res.sendFile(`${publicPath}/signup.html`);
     });
 
     app.get('/chat', (req, res) => {
-      res.sendFile(publicPath + '/chat.html');
+      res.sendFile(`${publicPath}/chat.html`);
     });
 
     app.get('/lobby', (req, res) => {
-      res.sendFile(publicPath + '/lobby.html');
+      res.sendFile(`${publicPath}/lobby.html`);
     });
   }
 
-  setupRoutes(app: express.Application) {
+  setupRoutes(app: express.Application): void {
     [
       new UserController(this.context),
       new RoomController(this.context),

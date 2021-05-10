@@ -1,4 +1,9 @@
-import { Router, Request, Response, NextFunction } from 'express';
+import {
+  Router,
+  Request,
+  Response,
+  NextFunction,
+} from 'express';
 
 import { ControllerContext, IController } from '../../../types/interface';
 import { HttpStatus } from '../../../types/enum';
@@ -20,32 +25,32 @@ export class UserController implements IController {
       .post(this.signIn.bind(this));
   }
 
-  async signUp(request: Request, response: Response, next: NextFunction) {
+  async signUp(request: Request, response: Response, next: NextFunction): Promise<void> {
     try {
       const { username, password } = request.body;
       const user = await this.userService.signUp({ username, password });
 
-      return response.status(HttpStatus.CREATED).send({
+      response.status(HttpStatus.CREATED).send({
         message: 'User successfully registered',
         data: user,
       });
-    } catch(err) {
+    } catch (err) {
       next(err);
     }
   }
 
-  async signIn(request: Request, response: Response, next: NextFunction) {
+  async signIn(request: Request, response: Response, next: NextFunction): Promise<void> {
     try {
       const { username, password } = request.body;
       const token = await this.userService.signIn({ username, password });
 
-      return response.status(HttpStatus.OK).send({
+      response.status(HttpStatus.OK).send({
         message: 'User successfully authenticated',
         data: {
           token,
         },
       });
-    } catch(err) {
+    } catch (err) {
       next(err);
     }
   }

@@ -22,7 +22,7 @@ export class UserRepository implements IUserRepository {
     await this.database(this.tableName).insert({
       id,
       username,
-      password
+      password,
     });
 
     return {

@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 class CustomError extends Error {
   private code: string;
   private details: CustomError[] | null;
@@ -22,11 +23,5 @@ export class BadRequest extends CustomError {
 export class InternalServerError extends CustomError {
   constructor(message: string, details: CustomError[]) {
     super('INTERNAL_SERVER_ERROR', message, details);
-  }
-}
-
-export class NotFound extends CustomError {
-  constructor(message: string, details: CustomError[]) {
-    super('NOT_FOUND', message, details);
   }
 }

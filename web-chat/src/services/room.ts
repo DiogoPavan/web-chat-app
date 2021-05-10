@@ -5,7 +5,7 @@ export class RoomService implements IRoomService {
   private roomRepository: ServiceContext['roomRepository'];
 
   constructor({ roomRepository }: ServiceContext) {
-    this.roomRepository = roomRepository
+    this.roomRepository = roomRepository;
   }
 
   findAll(): Promise<Rooms[]> {
