@@ -15,6 +15,9 @@ const env: Env = {
 
   authSecret: process.env.AUTH_SECRET,
   botName: process.env.BOT_NAME,
+
+  redisPort: parseInt(process.env.REDIS_PORT || '3306', 10),
+  redisHost: process.env.REDIS_HOST,
 };
 
 export default env;

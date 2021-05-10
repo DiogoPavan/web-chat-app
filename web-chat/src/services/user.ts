@@ -48,4 +48,8 @@ export class UserService implements IUserService {
 
     return token;
   }
+
+  findByUsername(username: string): Promise<User> {
+    return this.userRepository.findByUsername(username);
+  }
 }

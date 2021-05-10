@@ -8,4 +8,6 @@ export type Env = {
   databaseName: string,
   authSecret?: string,
   botName?: string,
+  redisPort?: number,
+  redisHost?: string,
 };

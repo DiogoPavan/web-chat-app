@@ -12,4 +12,5 @@ export interface IUserRepository {
 export interface IUserService {
   signUp(user: User): Promise<User>;
   signIn(user: User): Promise<string>;
+  findByUsername(username: User['username']): Promise<User>;
 }
