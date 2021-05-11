@@ -32,7 +32,6 @@ const getStockQuoteMessage = async (stockCode) => {
 
     return buildEmptyMessage();
   } catch (err) {
-    console.log(err);
     throw new Error(err);
   }
 };

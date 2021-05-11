@@ -35,7 +35,7 @@ module.exports = {
       { 'exceptAfterSingleLine': true }
     ]
   },
-  ignorePatterns: ['.eslintrc.js'],
+  ignorePatterns: ['.eslintrc.js', 'jest.config.js'],
   settings: {
     'import/resolver': {
       node: {

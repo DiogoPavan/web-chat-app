@@ -20,7 +20,6 @@ const requestStockQuote = async (stockCode) => {
 
     return getStockQuoteFromCsv(response.data);
   } catch (err) {
-    console.log(err);
     return null;
   }
 };
@@ -34,7 +33,6 @@ const requestTokenApi = async () => {
 
     return response.data.token;
   } catch (err) {
-    console.log(err);
     throw new Error(err);
   }
 };
