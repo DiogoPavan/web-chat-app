@@ -3,7 +3,7 @@ import redis from 'redis';
 
 import { WebSocketServerConfig } from '../../types/interface';
 import authorization from './middlewares/authorization';
-import { MessageSocket } from './sockets/message';
+import { ChatSocket } from './sockets/chat';
 
 export class WebSocketServer {
   private server: WebSocketServerConfig['server'];
@@ -16,9 +16,9 @@ export class WebSocketServer {
     this.env = config.env;
   }
 
-  connect() {
+  connect(): void {
     const io = new Server(this.server);
-    let messageSocket;
+    let chatSocket;
 
     const redisClient = redis.createClient({
       host: this.env.redisHost,
@@ -29,18 +29,18 @@ export class WebSocketServer {
 
     io.use(authorization);
     io.on('connection', (socket) => {
-      messageSocket = new MessageSocket({
+      chatSocket = new ChatSocket({
         socket,
         io,
         container: this.container,
         botName: this.env.botName!,
       });
 
-      messageSocket.listener();
+      chatSocket.listener();
     });
 
     redisClient.on('message', async (channel, data) => {
-      await messageSocket.redisSubscription(channel, data);
+      await chatSocket.redisSubscription(channel, data);
     });
   }
 }

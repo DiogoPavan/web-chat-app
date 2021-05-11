@@ -18,25 +18,24 @@ export class MessageRepository implements IMessageRepository {
   async createMessage(message: Message): Promise<Message> {
     const id = uuidv4();
 
-    const [insertedMessage] = await this.database(this.tableName).insert({
+    await this.database(this.tableName).insert({
       id,
       ...message,
-    }).then(() => (
-      this.database(this.tableName).select([
-        'id',
-        'createdAt',
-        'message',
-      ])
-        .where({
-          id,
-        })
-    ));
+    });
+
+    const [insertedMessage] = await this.database(this.tableName).select([
+      'id',
+      'createdAt',
+      'message',
+    ]).where({
+      id,
+    });
 
     return insertedMessage;
   }
 
-  async getMessagesByRoomId(roomId: string): Promise<Message[]> {
-    return this.database(this.tableName)
+  async findByRoomId(roomId: string): Promise<Message[]> {
+    const messages = await this.database(this.tableName)
       .join('users', 'messages.userId', 'users.id')
       .select([
         'message',
@@ -48,5 +47,7 @@ export class MessageRepository implements IMessageRepository {
       })
       .limit(50)
       .orderBy('messages.createdAt', 'desc');
+
+    return messages;
   }
 }

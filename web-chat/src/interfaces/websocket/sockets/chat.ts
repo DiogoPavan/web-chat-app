@@ -1,6 +1,7 @@
 import { SocketContext, ISocket } from '../../../types/interface';
+import { Message } from '../../../types/message';
 
-export class MessageSocket implements ISocket {
+export class ChatSocket implements ISocket {
   private socket: SocketContext['socket'];
   private io: SocketContext['io'];
 
@@ -30,13 +31,15 @@ export class MessageSocket implements ISocket {
     this.socket.on('chatMessage', this.createMessage.bind(this));
   }
 
-  async joinRoom({ roomId }): Promise<void> {
+  async joinRoom({ roomId }: {
+    roomId: Message['roomId']
+  }): Promise<void> {
     const { username } = this.socket;
 
     if (username !== this.botName) {
       this.socket.join(roomId);
 
-      const messages = await this.messageService.getMessagesByRoomId(roomId);
+      const messages = await this.messageService.findByRoomId(roomId);
 
       this.socket.emit('messages-join-room', messages);
     } else {
@@ -48,6 +51,9 @@ export class MessageSocket implements ISocket {
   async createMessage({
     message,
     roomId,
+  }: {
+    message: Message['message']
+    roomId: Message['roomId']
   }): Promise<void> {
     const newMessage = await this.messageService.createMessage({
       message,
