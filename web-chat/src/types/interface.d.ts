@@ -7,6 +7,7 @@ import { Env } from './env';
 
 export type ControllerContext = {
   container: ServiceContainer;
+  validator: typeof import('../interfaces/http/middlewares/validator').validation
 };
 
 export interface IController {

@@ -32,7 +32,7 @@ const configSocket = async () => {
     },
   });
 
-  socket.emit('joinRoom', { username: botName });
+  socket.emit('join-room', { username: botName });
   socket.on('message', listenMessage);
 };
 

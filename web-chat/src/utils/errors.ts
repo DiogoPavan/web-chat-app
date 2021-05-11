@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 class CustomError extends Error {
-  private code: string;
-  private details: CustomError[] | null;
+  code: string;
+  details: CustomError[] | null;
 
   constructor(
     code: string,
@@ -15,7 +15,7 @@ class CustomError extends Error {
 }
 
 export class BadRequest extends CustomError {
-  constructor(message: string, details: CustomError[]) {
+  constructor(message: string, details: null | any[] = null) {
     super('BAD_REQUEST', message, details);
   }
 }

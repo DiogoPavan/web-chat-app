@@ -4,8 +4,9 @@ import path from 'path';
 
 import { UserController } from './controllers/user';
 import { HttpServerConfig, IController } from '../../types/interface';
-import { errorHandler } from './middlewares/errorHandler';
 import { RoomController } from './controllers/room';
+import { errorHandler } from './middlewares/errorHandler';
+import { validation } from './middlewares/validator';
 
 export class HttpServer {
   private context: HttpServerConfig;
@@ -51,8 +52,14 @@ export class HttpServer {
 
   setupRoutes(app: express.Application): void {
     [
-      new UserController(this.context),
-      new RoomController(this.context),
+      new UserController({
+        container: this.context.container,
+        validator: validation,
+      }),
+      new RoomController({
+        container: this.context.container,
+        validator: validation,
+      }),
     ]
       .forEach((route: IController) => {
         const router = express.Router({ mergeParams: true });

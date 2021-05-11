@@ -7,22 +7,31 @@ import {
 
 import { ControllerContext, IController } from '../../../types/interface';
 import { HttpStatus } from '../../../types/enum';
+import { singUpSchema, singInSchema } from '../schemas/user';
 
 export class UserController implements IController {
+  private validator: ControllerContext['validator'];
   private userService: ControllerContext['container']['userService'];
 
-  constructor({ container }: ControllerContext) {
+  constructor({ container, validator }: ControllerContext) {
+    this.validator = validator;
     this.userService = container.userService;
   }
 
   register(router: Router): void {
     router
       .route('/users')
-      .post(this.signUp.bind(this));
+      .post(
+        this.validator(singUpSchema),
+        this.signUp.bind(this),
+      );
 
     router
       .route('/users/signIn')
-      .post(this.signIn.bind(this));
+      .post(
+        this.validator(singInSchema),
+        this.signIn.bind(this),
+      );
   }
 
   async signUp(request: Request, response: Response, next: NextFunction): Promise<void> {
