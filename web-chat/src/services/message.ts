@@ -30,8 +30,8 @@ export class MessageService implements IMessageService {
     };
   }
 
-  async getMessagesByRoomId(roomId: string): Promise<Message[]> {
-    const messages = await this.messageRepository.getMessagesByRoomId(roomId);
+  async findByRoomId(roomId: string): Promise<Message[]> {
+    const messages = await this.messageRepository.findByRoomId(roomId);
     return messages.reverse();
   }
 }

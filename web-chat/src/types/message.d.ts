@@ -1,4 +1,5 @@
 export type Message = {
+  id?: string,
   userId: string,
   roomId: string,
   message: string,
@@ -7,10 +8,10 @@ export type Message = {
 
 export interface IMessageRepository {
   createMessage(message: Message): Promise<Message>;
-  getMessagesByRoomId(roomId: Message['roomId']): Promise<Message[]>;
+  findByRoomId(roomId: Message['roomId']): Promise<Message[]>;
 }
 
 export interface IMessageService {
   createMessage(message: Message): Promise<Message>;
-  getMessagesByRoomId(roomId: Message['roomId']): Promise<Message[]>;
+  findByRoomId(roomId: Message['roomId']): Promise<Message[]>;
 }

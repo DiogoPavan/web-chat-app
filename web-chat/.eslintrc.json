@@ -22,6 +22,7 @@
     "jest"
   ],
   "rules": {
+    "max-len": [0, 150, 2],
     "import/extensions": "off",
     "import/prefer-default-export": "off",
     "class-methods-use-this": "off",

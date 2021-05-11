@@ -12,11 +12,11 @@
   "include": [
     "src/**/**/*.ts",
     "src/**/**/*.d.ts",
-    "database/migrations/*.ts",
+    "database/migrations/*.ts"
   ],
   "exclude": [
     "dist",
     "node_modules",
-    "jest.config.ts"
+    "jest.config.js"
   ]
 }
