@@ -3,7 +3,7 @@ import joi from 'joi';
 export const singUpSchema = joi.object({
   body: joi.object({
     username: joi.string().required(),
-    password: joi.string().required().min(6),
+    password: joi.string().required(),
   }),
 });
 
