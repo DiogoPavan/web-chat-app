@@ -10,7 +10,7 @@ const socket = io({
   }
 });
 
-socket.emit('joinRoom', { roomId });
+socket.emit('join-room', { roomId });
 
 socket.on('messages-join-room', messages => {
     console.log(messages);
@@ -33,7 +33,7 @@ chatForm.addEventListener('submit', (e) => {
 
     const msg = e.target.elements.msg.value;
 
-    socket.emit('chatMessage', {
+    socket.emit('chat-message', {
       message: msg,
       roomId,
     });
