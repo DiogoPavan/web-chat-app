@@ -27,8 +27,8 @@ export class ChatSocket implements ISocket {
   }
 
   listener(): void {
-    this.socket.on('joinRoom', this.joinRoom.bind(this));
-    this.socket.on('chatMessage', this.createMessage.bind(this));
+    this.socket.on('join-room', this.joinRoom.bind(this));
+    this.socket.on('chat-message', this.createMessage.bind(this));
   }
 
   async joinRoom({ roomId }: {
