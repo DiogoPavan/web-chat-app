@@ -1,5 +1,5 @@
 # Web Chat Application
-The goal of this project was to create a web chat that allow users to talk in a chatroom and a bot that answer to a stock command and post a message about a stock quote.
+The goal of this project was to create a web chat that allows users to talk in a chatroom and a bot that answer to a stock command and post a message about a stock quote.
 
 The project is totally focused on the backend, so the frontend is as simple as possible.
 
