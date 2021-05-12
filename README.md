@@ -103,3 +103,4 @@ To run without the docker you will need `Node.js` (version used `14.16.1`) insta
 - Allow the user to create their own rooms;
 - Add application monitoring;
 - Add GitHub Actions to build and test;
+- Include session control to allow one user per session
