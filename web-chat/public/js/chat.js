@@ -13,17 +13,15 @@ const socket = io({
 socket.emit('join-room', { roomId });
 
 socket.on('messages-join-room', messages => {
-    console.log(messages);
-
     messages.forEach(message => showMessage(message));
 
     chatMessages.scrollTop = chatMessages.scrollHeight;
 });
 
 socket.on('message', message => {
-  console.log(message);
-
-  showMessage(message);
+  if (chatMessages.childNodes.length === 50) {
+    chatMessages.removeChild(chatMessages.childNodes[0]);
+  }
 
   chatMessages.scrollTop = chatMessages.scrollHeight;
 });
