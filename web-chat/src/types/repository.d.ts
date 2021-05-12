@@ -14,5 +14,3 @@ export type RepositoryContainer = {
   messageRepository: IMessageRepository;
   roomRepository: IRoomService;
 };
-
-export type Database = Knex;
