@@ -28,7 +28,7 @@ The following technologies were used for the development of the project:
     - `web-chat` was developed with Typescript;
     - `bot` was developed with Javascript;
 - `Redis 6` as a message broker.
-- `Socket.io` to create the chat websocket.
+- `Socket.io` to create the websocket.
 - `Express` to create the server.
 - `Jest`, a test library.
 - `Knex` as SQL query builder.

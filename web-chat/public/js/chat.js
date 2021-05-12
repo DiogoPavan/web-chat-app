@@ -23,6 +23,8 @@ socket.on('message', message => {
     chatMessages.removeChild(chatMessages.childNodes[0]);
   }
 
+  showMessage(message);
+
   chatMessages.scrollTop = chatMessages.scrollHeight;
 });
 
