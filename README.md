@@ -1,5 +1,5 @@
 # Web Chat Application
-The goal of this project was to create a web chat that allows users to talk in a chatroom and a bot that answer to a stock command and post a message about a stock quote.
+The goal of this project was to create a web chat that allows users to talk in a chatroom and a bot that answers to a stock command and post a message about a stock quote.
 
 The project is totally focused on the backend, so the frontend is as simple as possible.
 
@@ -13,14 +13,14 @@ The project is totally focused on the backend, so the frontend is as simple as p
 
 ## Features
 Some features of the project are:
-- User signup, login and logout;
+- User sign up, sign in and sign out;
 - More than one chatroom;
 - The chat messages are ordered by timestamps and the chat will show only the last 50 messages;
 - It is possible to request a stock quote:
     - Post the command `/stock=stock_code` (Example: `/stock=aapl.us`) into de chatroom;
     - The bot will answer the command;
     - If the command does not follow this format it will be considered as a simple message;
-    - The bot was developed to handle messages that are no understood
+    - The bot was developed to handle messages that are no understood;
 
 ## Technologies
 The following technologies were used for the development of the project:
@@ -103,4 +103,4 @@ To run without the docker you will need `Node.js` (version used `14.16.1`) insta
 - Allow the user to create their own rooms;
 - Add application monitoring;
 - Add GitHub Actions to build and test;
-- Include session control to allow one user per session
+- Include session control to allow one user per session;
