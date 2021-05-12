@@ -1,4 +1,5 @@
 import { verify } from 'jsonwebtoken';
+import { SocketWebChat } from '../../../types/interface';
 import jwtConfig from '../../../utils/jwt';
 
 type DecodedJwt = {
@@ -8,7 +9,7 @@ type DecodedJwt = {
   exp: number,
 };
 
-export default async (socket: any, next: any): Promise<any> => {
+export default async (socket: SocketWebChat, next: any): Promise<any> => {
   const authToken = socket.handshake && socket.handshake.auth && socket.handshake.auth.token;
 
   if (!authToken) {

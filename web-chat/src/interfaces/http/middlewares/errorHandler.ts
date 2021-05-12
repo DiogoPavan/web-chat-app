@@ -7,7 +7,7 @@ export const errorHandler = (
   err: any,
   req: Request,
   res: Response,
-  next: NextFunction,
+  _: NextFunction,
 ): any => {
   let status = HttpStatus.INTERNAL_SERVER_ERROR;
 

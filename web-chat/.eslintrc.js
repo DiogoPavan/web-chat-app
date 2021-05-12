@@ -29,6 +29,7 @@ module.exports = {
     'lines-between-class-members': 'off',
     'no-param-reassign': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/lines-between-class-members': [
       'error',
       'always',
